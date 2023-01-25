@@ -1,0 +1,22 @@
+const express = require("express");
+const app = express();
+
+const reqFilter = (request, responce, next) => {
+  // console.log(reqFilter);
+  if (request.query.age >= 18) {
+    responce.send("An Adult Age");
+  } else if (request.query.age < 18) {
+    responce.send("Enter a vailed age : ");
+  } else {
+    next();
+  }
+};
+app.use(reqFilter);
+
+app.get("/", (request, responce) => {
+  responce.send("Welcome to Home Page ");
+});
+app.get("/users", (request, responce) => {
+  responce.send("Welcome to users Page ");
+});
+app.listen(3000);
